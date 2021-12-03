@@ -28,9 +28,7 @@ namespace Messages.Common
 
     public class OptionalDateRange : Range<DateTime?>
     {
-        public OptionalDateRange()
-        {
-        }
+        public OptionalDateRange() { }
 
         public OptionalDateRange(DateTime? from, DateTime? to) : base(from, to)
         {
