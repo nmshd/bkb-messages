@@ -5,11 +5,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Exceptions;
 using Enmeshed.DevelopmentKit.Identity.ValueObjects;
+using Enmeshed.Tooling;
 using Messages.Common;
 using Messages.Domain.Entities;
 using Messages.Domain.Ids;
 using Microsoft.EntityFrameworkCore;
-using Enmeshed.Tooling;
 
 namespace Messages.Application.Extensions
 {

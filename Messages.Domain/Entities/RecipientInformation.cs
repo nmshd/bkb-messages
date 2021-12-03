@@ -1,7 +1,7 @@
 ﻿using System;
 using Enmeshed.DevelopmentKit.Identity.ValueObjects;
-using Messages.Domain.Ids;
 using Enmeshed.Tooling;
+using Messages.Domain.Ids;
 
 namespace Messages.Domain.Entities
 {

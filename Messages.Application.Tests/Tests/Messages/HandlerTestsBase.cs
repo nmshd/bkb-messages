@@ -4,13 +4,13 @@ using AutoMapper;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.UserContext;
 using Enmeshed.DevelopmentKit.Identity.ValueObjects;
+using Enmeshed.Tooling;
+using Enmeshed.UnitTestTools.TestDoubles.Fakes;
 using Messages.Application.AutoMapper;
 using Messages.Application.Tests.AutoFixture;
 using Messages.Domain.Entities;
 using Messages.Infrastructure.Persistence.Database;
 using Moq;
-using Enmeshed.Tooling;
-using Enmeshed.UnitTestTools.TestDoubles.Fakes;
 
 namespace Messages.Application.Tests.Tests.Messages
 {

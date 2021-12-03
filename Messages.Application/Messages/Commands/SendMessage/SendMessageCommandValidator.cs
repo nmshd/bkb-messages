@@ -1,5 +1,6 @@
 ﻿using Enmeshed.BuildingBlocks.Application.Abstractions.Exceptions;
 using Enmeshed.BuildingBlocks.Application.FluentValidation;
+using Enmeshed.Tooling.Extensions;
 using FluentValidation;
 
 namespace Messages.Application.Messages.Commands.SendMessage
@@ -19,7 +20,7 @@ namespace Messages.Application.Messages.Commands.SendMessage
             RuleFor(m => m.Recipients.Count)
                 .InclusiveBetween(1, 50).When(m => m.Recipients != null).WithErrorCode(GenericApplicationErrors.Validation.InvalidPropertyValue().Code);
 
-            RuleFor(m => m.Body).DetailedNotNull().NumberOfBytes(1, 10 * 1024 * 1024);
+            RuleFor(m => m.Body).DetailedNotNull().NumberOfBytes(1, 10.Mebibytes());
 
             RuleFor(m => m.Attachments)
                 .ForEach(i => i

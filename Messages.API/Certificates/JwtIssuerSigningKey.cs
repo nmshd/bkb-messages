@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using Enmeshed.Tooling.Extensions;
 using Messages.API.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -49,7 +50,7 @@ namespace Messages.API.Certificates
 
         private static byte[] ReadStream(Stream input)
         {
-            var buffer = new byte[16 * 1024];
+            var buffer = new byte[16.Kibibytes()];
 
             using var ms = new MemoryStream();
 

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Messages.Domain.Ids;
 using Enmeshed.StronglyTypedIds;
+using Messages.Domain.Ids;
 
 namespace Messages.API.JsonConverters
 {
