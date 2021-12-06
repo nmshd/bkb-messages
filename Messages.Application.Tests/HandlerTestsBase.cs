@@ -12,7 +12,7 @@ using Messages.Domain.Entities;
 using Messages.Infrastructure.Persistence.Database;
 using Moq;
 
-namespace Messages.Application.Tests.Tests.Messages
+namespace Messages.Application.Tests
 {
     public abstract class HandlerTestsBase
     {

@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messages.API", "Messages.API\Messages.API.csproj", "{AA0B4B2E-4F7E-4EF8-BF3A-5AF49BACDF9F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messages.API.Tests", "Messages.API.Tests\Messages.API.Tests.csproj", "{46C3B26F-F408-44B6-A471-483CBB69730A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messages.Application", "Messages.Application\Messages.Application.csproj", "{09DA6123-0382-4C21-91F8-7188F2E5E3DE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messages.Application.Tests", "Messages.Application.Tests\Messages.Application.Tests.csproj", "{F31B6DDC-B85C-43F1-926B-DC6ABE086030}"
@@ -25,10 +23,6 @@ Global
 		{AA0B4B2E-4F7E-4EF8-BF3A-5AF49BACDF9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA0B4B2E-4F7E-4EF8-BF3A-5AF49BACDF9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA0B4B2E-4F7E-4EF8-BF3A-5AF49BACDF9F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46C3B26F-F408-44B6-A471-483CBB69730A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46C3B26F-F408-44B6-A471-483CBB69730A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46C3B26F-F408-44B6-A471-483CBB69730A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46C3B26F-F408-44B6-A471-483CBB69730A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{09DA6123-0382-4C21-91F8-7188F2E5E3DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{09DA6123-0382-4C21-91F8-7188F2E5E3DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09DA6123-0382-4C21-91F8-7188F2E5E3DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
