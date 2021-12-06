@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29102.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messages.API", "Messages.API\Messages.API.csproj", "{AA0B4B2E-4F7E-4EF8-BF3A-5AF49BACDF9F}"
 EndProject
@@ -12,6 +12,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messages.Domain", "Messages.Domain\Messages.Domain.csproj", "{3A0F8484-C6E4-44E2-AE6C-57748B328A1B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messages.Infrastructure", "Messages.Infrastructure\Messages.Infrastructure.csproj", "{67C635EF-9A71-4949-A2B0-56D58B98195B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messages.Common", "Messages.Common\Messages.Common.csproj", "{C089FC15-77AF-4267-B61E-F10B5AC28933}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ABD0263F-2712-4E64-B829-876AD2998620}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7410D23E-123A-42C4-B6FA-B2850408261D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +45,21 @@ Global
 		{67C635EF-9A71-4949-A2B0-56D58B98195B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67C635EF-9A71-4949-A2B0-56D58B98195B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67C635EF-9A71-4949-A2B0-56D58B98195B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C089FC15-77AF-4267-B61E-F10B5AC28933}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C089FC15-77AF-4267-B61E-F10B5AC28933}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C089FC15-77AF-4267-B61E-F10B5AC28933}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C089FC15-77AF-4267-B61E-F10B5AC28933}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AA0B4B2E-4F7E-4EF8-BF3A-5AF49BACDF9F} = {ABD0263F-2712-4E64-B829-876AD2998620}
+		{09DA6123-0382-4C21-91F8-7188F2E5E3DE} = {ABD0263F-2712-4E64-B829-876AD2998620}
+		{F31B6DDC-B85C-43F1-926B-DC6ABE086030} = {7410D23E-123A-42C4-B6FA-B2850408261D}
+		{3A0F8484-C6E4-44E2-AE6C-57748B328A1B} = {ABD0263F-2712-4E64-B829-876AD2998620}
+		{67C635EF-9A71-4949-A2B0-56D58B98195B} = {ABD0263F-2712-4E64-B829-876AD2998620}
+		{C089FC15-77AF-4267-B61E-F10B5AC28933} = {ABD0263F-2712-4E64-B829-876AD2998620}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0C2C1ED5-3A33-41F2-8383-1DCA7E2A5EB6}
