@@ -60,8 +60,7 @@ namespace Messages.API.Extensions
                     {
                         options.JsonSerializerOptions.Converters.Add(converter);
                     }
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                });
 
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
