@@ -1,35 +1,33 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using Enmeshed.StronglyTypedIds;
 using Messages.Domain.Ids;
 
-namespace Messages.API.JsonConverters
+namespace Messages.API.JsonConverters;
+
+public class MessageIdJsonConverter : JsonConverter<MessageId>
 {
-    public class MessageIdJsonConverter : JsonConverter<MessageId>
+    public override bool CanConvert(Type objectType)
     {
-        public override bool CanConvert(Type objectType)
-        {
-            return objectType == typeof(MessageId);
-        }
+        return objectType == typeof(MessageId);
+    }
 
-        public override MessageId Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-        {
-            var id = reader.GetString();
+    public override MessageId Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        var id = reader.GetString();
 
-            try
-            {
-                return MessageId.Parse(id);
-            }
-            catch (InvalidIdException ex)
-            {
-                throw new JsonException(ex.Message);
-            }
-        }
-
-        public override void Write(Utf8JsonWriter writer, MessageId value, JsonSerializerOptions options)
+        try
         {
-            writer.WriteStringValue(value.StringValue);
+            return MessageId.Parse(id);
         }
+        catch (InvalidIdException ex)
+        {
+            throw new JsonException(ex.Message);
+        }
+    }
+
+    public override void Write(Utf8JsonWriter writer, MessageId value, JsonSerializerOptions options)
+    {
+        writer.WriteStringValue(value.StringValue);
     }
 }

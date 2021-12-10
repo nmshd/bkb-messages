@@ -1,9 +1,8 @@
 ﻿using AutoFixture;
 
-namespace Messages.Application.Tests.AutoFixture
+namespace Messages.Application.Tests.AutoFixture;
+
+public class Customizations : ICustomization
 {
-    public class Customizations : ICustomization
-    {
-        public void Customize(IFixture fixture) { }
-    }
+    public void Customize(IFixture fixture) { }
 }

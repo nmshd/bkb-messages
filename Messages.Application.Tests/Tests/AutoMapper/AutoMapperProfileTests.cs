@@ -2,18 +2,17 @@
 using Messages.Application.AutoMapper;
 using Xunit;
 
-namespace Messages.Application.Tests.Tests.AutoMapper
-{
-    public class AutoMapperProfileTests
-    {
-        [Fact]
-        public void ProfileIsValid()
-        {
-            // Arrange
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapperProfile>());
+namespace Messages.Application.Tests.Tests.AutoMapper;
 
-            // Act & Assert
-            configuration.AssertConfigurationIsValid();
-        }
+public class AutoMapperProfileTests
+{
+    [Fact]
+    public void ProfileIsValid()
+    {
+        // Arrange
+        var configuration = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapperProfile>());
+
+        // Act & Assert
+        configuration.AssertConfigurationIsValid();
     }
 }

@@ -1,12 +1,11 @@
 ﻿using AutoFixture;
 
-namespace Messages.Application.Tests.AutoFixture
+namespace Messages.Application.Tests.AutoFixture;
+
+public class CustomFixture : Fixture
 {
-    public class CustomFixture : Fixture
+    public CustomFixture()
     {
-        public CustomFixture()
-        {
-            Customize(new Customizations());
-        }
+        Customize(new Customizations());
     }
 }

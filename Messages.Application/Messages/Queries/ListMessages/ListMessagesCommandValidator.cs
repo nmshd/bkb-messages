@@ -1,18 +1,17 @@
-﻿using System;
-using Enmeshed.BuildingBlocks.Application.Abstractions.Exceptions;
+﻿using Enmeshed.BuildingBlocks.Application.Abstractions.Exceptions;
 using FluentValidation;
 using Messages.Common;
 using Messages.Common.FluentValidation;
 
-namespace Messages.Application.Messages.Queries.ListMessages
+namespace Messages.Application.Messages.Queries.ListMessages;
+
+// ReSharper disable once UnusedMember.Global
+public class ListMessagesCommandValidator : AbstractValidator<ListMessagesCommand>
 {
-    public class ListMessagesCommandValidator : AbstractValidator<ListMessagesCommand>
+    public ListMessagesCommandValidator()
     {
-        public ListMessagesCommandValidator()
-        {
-            RuleFor(command => command.CreatedAt)
-                .IsValidRange<ListMessagesCommand, OptionalDateRange, DateTime?>()
-                .WithErrorCode(GenericApplicationErrors.Validation.InvalidPropertyValue().Code);
-        }
+        RuleFor(command => command.CreatedAt)
+            .IsValidRange<ListMessagesCommand, OptionalDateRange, DateTime?>()
+            .WithErrorCode(GenericApplicationErrors.Validation.InvalidPropertyValue().Code);
     }
 }
