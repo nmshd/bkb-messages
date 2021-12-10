@@ -2,10 +2,9 @@
 using Messages.Domain.Entities;
 using Messages.Domain.Ids;
 
-namespace Messages.Application.Messages.DTOs
+namespace Messages.Application.Messages.DTOs;
+
+public class AttachmentDTO : IMapTo<Attachment>
 {
-    public class AttachmentDTO : IMapTo<Attachment>
-    {
-        public FileId Id { get; set; }
-    }
+    public FileId Id { get; set; }
 }

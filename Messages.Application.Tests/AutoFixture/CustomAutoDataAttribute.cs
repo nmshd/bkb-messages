@@ -1,19 +1,18 @@
 ﻿using AutoFixture;
 using AutoFixture.Xunit2;
 
-namespace Messages.Application.Tests.AutoFixture
+namespace Messages.Application.Tests.AutoFixture;
+
+public class CustomAutoDataAttribute : AutoDataAttribute
 {
-    public class CustomAutoDataAttribute : AutoDataAttribute
+    public CustomAutoDataAttribute() : base(FixtureFactory) { }
+
+    private static IFixture FixtureFactory()
     {
-        public CustomAutoDataAttribute() : base(FixtureFactory) { }
+        var fixture = new CustomFixture();
 
-        private static IFixture FixtureFactory()
-        {
-            var fixture = new CustomFixture();
+        fixture.Customize(new Customizations());
 
-            fixture.Customize(new Customizations());
-
-            return fixture;
-        }
+        return fixture;
     }
 }

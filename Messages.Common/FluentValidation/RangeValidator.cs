@@ -1,33 +1,32 @@
 ﻿using FluentValidation;
 using FluentValidation.Validators;
 
-namespace Messages.Common.FluentValidation
+namespace Messages.Common.FluentValidation;
+
+public class RangeValidator<T, TProperty, TRangeContent> : PropertyValidator<T, TProperty>
 {
-    public class RangeValidator<T, TProperty, TRangeContent> : PropertyValidator<T, TProperty>
+    public override string Name => "{PropertyName} is not a valid range.";
+
+    public override bool IsValid(ValidationContext<T> context, TProperty value)
     {
-        public override string Name => "{PropertyName} is not a valid range.";
-
-        public override bool IsValid(ValidationContext<T> context, TProperty value)
-        {
-            if (value == null)
-                return true;
-
-            if (value is not Range<TRangeContent> range)
-                throw new InvalidOperationException($"{typeof(RangeValidator<T, TProperty, TRangeContent>).FullName} can only be applied to objects of type {typeof(Range<TRangeContent>).FullName}.");
-
-            if (!range.HasFrom() && range.HasTo())
-                return false;
-
+        if (value == null)
             return true;
-        }
-    }
 
-    public static class NumberOfBytesValidatorRuleBuilderExtensions
+        if (value is not Range<TRangeContent> range)
+            throw new InvalidOperationException($"{typeof(RangeValidator<T, TProperty, TRangeContent>).FullName} can only be applied to objects of type {typeof(Range<TRangeContent>).FullName}.");
+
+        if (!range.HasFrom() && range.HasTo())
+            return false;
+
+        return true;
+    }
+}
+
+public static class NumberOfBytesValidatorRuleBuilderExtensions
+{
+    public static IRuleBuilderOptions<TObject, TProperty> IsValidRange<TObject, TProperty, TRangeContent>(this IRuleBuilder<TObject, TProperty> ruleBuilder) where TProperty : Range<TRangeContent>
     {
-        public static IRuleBuilderOptions<TObject, TProperty> IsValidRange<TObject, TProperty, TRangeContent>(this IRuleBuilder<TObject, TProperty> ruleBuilder) where TProperty : Range<TRangeContent>
-        {
-            return ruleBuilder
-                .SetValidator(new RangeValidator<TObject, TProperty, TRangeContent>());
-        }
+        return ruleBuilder
+            .SetValidator(new RangeValidator<TObject, TProperty, TRangeContent>());
     }
 }

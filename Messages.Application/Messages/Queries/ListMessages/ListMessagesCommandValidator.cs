@@ -3,15 +3,14 @@ using FluentValidation;
 using Messages.Common;
 using Messages.Common.FluentValidation;
 
-namespace Messages.Application.Messages.Queries.ListMessages
+namespace Messages.Application.Messages.Queries.ListMessages;
+
+public class ListMessagesCommandValidator : AbstractValidator<ListMessagesCommand>
 {
-    public class ListMessagesCommandValidator : AbstractValidator<ListMessagesCommand>
+    public ListMessagesCommandValidator()
     {
-        public ListMessagesCommandValidator()
-        {
-            RuleFor(command => command.CreatedAt)
-                .IsValidRange<ListMessagesCommand, OptionalDateRange, DateTime?>()
-                .WithErrorCode(GenericApplicationErrors.Validation.InvalidPropertyValue().Code);
-        }
+        RuleFor(command => command.CreatedAt)
+            .IsValidRange<ListMessagesCommand, OptionalDateRange, DateTime?>()
+            .WithErrorCode(GenericApplicationErrors.Validation.InvalidPropertyValue().Code);
     }
 }

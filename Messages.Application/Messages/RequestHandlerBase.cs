@@ -4,21 +4,20 @@ using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.UserContex
 using Enmeshed.DevelopmentKit.Identity.ValueObjects;
 using MediatR;
 
-namespace Messages.Application.Messages
+namespace Messages.Application.Messages;
+
+public abstract class RequestHandlerBase<TRequest, TResponse> : IRequestHandler<TRequest, TResponse> where TRequest : IRequest<TResponse>
 {
-    public abstract class RequestHandlerBase<TRequest, TResponse> : IRequestHandler<TRequest, TResponse> where TRequest : IRequest<TResponse>
+    protected readonly IdentityAddress _activeIdentity;
+    protected readonly IEventBus _eventBus;
+    protected readonly IMapper _mapper;
+
+    protected RequestHandlerBase(IUserContext userContext, IMapper mapper, IEventBus eventBus)
     {
-        protected readonly IdentityAddress _activeIdentity;
-        protected readonly IEventBus _eventBus;
-        protected readonly IMapper _mapper;
-
-        protected RequestHandlerBase(IUserContext userContext, IMapper mapper, IEventBus eventBus)
-        {
-            _mapper = mapper;
-            _eventBus = eventBus;
-            _activeIdentity = userContext.GetAddress();
-        }
-
-        public abstract Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken);
+        _mapper = mapper;
+        _eventBus = eventBus;
+        _activeIdentity = userContext.GetAddress();
     }
+
+    public abstract Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken);
 }

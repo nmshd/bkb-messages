@@ -15,51 +15,51 @@ using Messages.Domain.Ids;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using ApplicationException = Enmeshed.BuildingBlocks.Application.Abstractions.Exceptions.ApplicationException;
 
-namespace Messages.API.Controllers
+namespace Messages.API.Controllers;
+
+[Route("api/v1/[controller]")]
+[Authorize]
+public class MessagesController : ApiControllerBase
 {
-    [Route("api/v1/[controller]")]
-    [Authorize]
-    public class MessagesController : ApiControllerBase
+    private readonly ApplicationOptions _options;
+
+    public MessagesController(IMediator mediator, IOptions<ApplicationOptions> options) : base(mediator)
     {
-        private readonly ApplicationOptions _options;
+        _options = options.Value;
+    }
 
-        public MessagesController(IMediator mediator, IOptions<ApplicationOptions> options) : base(mediator)
-        {
-            _options = options.Value;
-        }
+    [HttpGet]
+    [ProducesResponseType(typeof(PagedHttpResponseEnvelope<ListMessagesResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> ListMessages([FromQuery] PaginationFilter paginationFilter, [FromQuery] IEnumerable<MessageId> ids, [FromQuery] RelationshipId relationship, [FromQuery] IdentityAddress createdBy, [FromQuery] IdentityAddress recipient, [FromQuery] OptionalDateRange createdAt, [FromQuery] bool? unreceived, [FromQuery] bool? onlyIncoming, bool? noBody)
+    {
+        var command = new ListMessagesCommand(paginationFilter, ids, relationship, createdBy, recipient, createdAt, unreceived == true, onlyIncoming == true, noBody == true);
 
-        [HttpGet]
-        [ProducesResponseType(typeof(PagedHttpResponseEnvelope<ListMessagesResponse>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> ListMessages([FromQuery] PaginationFilter paginationFilter, [FromQuery] IEnumerable<MessageId> ids, [FromQuery] RelationshipId relationship, [FromQuery] IdentityAddress createdBy, [FromQuery] IdentityAddress recipient, [FromQuery] OptionalDateRange createdAt, [FromQuery] bool? unreceived, [FromQuery] bool? onlyIncoming, bool? noBody)
-        {
-            var command = new ListMessagesCommand(paginationFilter, ids, relationship, createdBy, recipient, createdAt, unreceived == true, onlyIncoming == true, noBody == true);
+        command.PaginationFilter.PageSize ??= _options.Pagination.DefaultPageSize;
 
-            command.PaginationFilter.PageSize ??= _options.Pagination.DefaultPageSize;
+        if (command.PaginationFilter.PageSize > _options.Pagination.MaxPageSize)
+            throw new ApplicationException(GenericApplicationErrors.Validation.InvalidPageSize(_options.Pagination.MaxPageSize));
 
-            if (command.PaginationFilter.PageSize > _options.Pagination.MaxPageSize)
-                throw new ApplicationException(GenericApplicationErrors.Validation.InvalidPageSize(_options.Pagination.MaxPageSize));
+        var messages = await _mediator.Send(command);
+        return Paged(messages);
+    }
 
-            var messages = await _mediator.Send(command);
-            return Paged(messages);
-        }
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(HttpResponseEnvelopeResult<MessageDTO>), StatusCodes.Status200OK)]
+    [ProducesError(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetMessage(MessageId id, [FromQuery] bool? noBody)
+    {
+        var response = await _mediator.Send(new GetMessageCommand {Id = id, NoBody = noBody == true});
+        return Ok(response);
+    }
 
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(HttpResponseEnvelopeResult<MessageDTO>), StatusCodes.Status200OK)]
-        [ProducesError(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetMessage(MessageId id, [FromQuery] bool? noBody)
-        {
-            var response = await _mediator.Send(new GetMessageCommand {Id = id, NoBody = noBody == true});
-            return Ok(response);
-        }
-
-        [HttpPost]
-        [ProducesResponseType(typeof(HttpResponseEnvelopeResult<SendMessageResponse>), StatusCodes.Status201Created)]
-        [ProducesError(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SendMessage(SendMessageCommand request)
-        {
-            var response = await _mediator.Send(request);
-            return CreatedAtAction(nameof(GetMessage), new {id = response.Id}, response);
-        }
+    [HttpPost]
+    [ProducesResponseType(typeof(HttpResponseEnvelopeResult<SendMessageResponse>), StatusCodes.Status201Created)]
+    [ProducesError(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> SendMessage(SendMessageCommand request)
+    {
+        var response = await _mediator.Send(request);
+        return CreatedAtAction(nameof(GetMessage), new {id = response.Id}, response);
     }
 }

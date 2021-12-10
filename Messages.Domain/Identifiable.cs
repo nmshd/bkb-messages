@@ -1,7 +1,6 @@
-﻿namespace Messages.Domain
+﻿namespace Messages.Domain;
+
+public interface Identifiable<out TId>
 {
-    public interface Identifiable<out TId>
-    {
-        public TId Id { get; }
-    }
+    public TId Id { get; }
 }

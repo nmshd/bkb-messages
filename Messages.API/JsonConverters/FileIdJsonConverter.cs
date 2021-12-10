@@ -3,32 +3,31 @@ using System.Text.Json.Serialization;
 using Enmeshed.StronglyTypedIds;
 using Messages.Domain.Ids;
 
-namespace Messages.API.JsonConverters
+namespace Messages.API.JsonConverters;
+
+public class FileIdJsonConverter : JsonConverter<FileId>
 {
-    public class FileIdJsonConverter : JsonConverter<FileId>
+    public override bool CanConvert(Type objectType)
     {
-        public override bool CanConvert(Type objectType)
-        {
-            return objectType == typeof(FileId);
-        }
+        return objectType == typeof(FileId);
+    }
 
-        public override FileId Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-        {
-            var id = reader.GetString();
+    public override FileId Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        var id = reader.GetString();
 
-            try
-            {
-                return FileId.Parse(id);
-            }
-            catch (InvalidIdException ex)
-            {
-                throw new JsonException(ex.Message);
-            }
-        }
-
-        public override void Write(Utf8JsonWriter writer, FileId value, JsonSerializerOptions options)
+        try
         {
-            writer.WriteStringValue(value.StringValue);
+            return FileId.Parse(id);
         }
+        catch (InvalidIdException ex)
+        {
+            throw new JsonException(ex.Message);
+        }
+    }
+
+    public override void Write(Utf8JsonWriter writer, FileId value, JsonSerializerOptions options)
+    {
+        writer.WriteStringValue(value.StringValue);
     }
 }
