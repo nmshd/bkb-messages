@@ -1,5 +1,4 @@
-﻿using System;
-using Enmeshed.DevelopmentKit.Identity.ValueObjects;
+﻿using Enmeshed.DevelopmentKit.Identity.ValueObjects;
 using Messages.Domain.Ids;
 
 namespace Messages.Domain.Entities

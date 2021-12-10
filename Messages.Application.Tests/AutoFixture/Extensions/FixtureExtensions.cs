@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using AutoFixture;
+﻿using AutoFixture;
 using AutoFixture.Dsl;
 using Messages.Application.Messages.Commands.SendMessage;
 using Messages.Domain.Entities;

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Enmeshed.BuildingBlocks.Application.Pagination;
+﻿using Enmeshed.BuildingBlocks.Application.Pagination;
 using Enmeshed.DevelopmentKit.Identity.ValueObjects;
 using Messages.Application.Messages.DTOs;
 

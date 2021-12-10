@@ -1,12 +1,9 @@
-﻿using System;
-using Azure.Identity;
+﻿using Azure.Identity;
 using Enmeshed.BuildingBlocks.API.Extensions;
 using Enmeshed.Tooling.Extensions;
 using Messages.API.Extensions;
 using Messages.Infrastructure.Persistence.Database;
 using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 
 namespace Messages.API
 {

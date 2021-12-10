@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using AutoFixture;
+﻿using AutoFixture;
 using AutoFixture.Dsl;
 using Enmeshed.DevelopmentKit.Identity.ValueObjects;
 using Messages.Application.Messages.Commands.SendMessage;

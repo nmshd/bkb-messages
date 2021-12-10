@@ -1,5 +1,4 @@
-﻿using System;
-using AutoFixture;
+﻿using AutoFixture;
 using AutoMapper;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.UserContext;

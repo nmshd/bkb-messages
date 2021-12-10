@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoFixture;
+﻿using AutoFixture;
 using AutoFixture.Dsl;
 using Messages.Application.Messages.Commands.SendMessage;
 

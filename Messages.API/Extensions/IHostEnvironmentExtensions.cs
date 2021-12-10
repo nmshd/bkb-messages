@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-
-namespace Messages.API.Extensions
+﻿namespace Messages.API.Extensions
 {
     public static class IHostEnvironmentExtensions
     {

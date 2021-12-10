@@ -1,11 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using Enmeshed.Tooling.Extensions;
 using Messages.API.Extensions;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Messages.API.Certificates

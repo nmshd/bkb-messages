@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Messages.Common
+﻿namespace Messages.Common
 {
     public class Range<T>
     {

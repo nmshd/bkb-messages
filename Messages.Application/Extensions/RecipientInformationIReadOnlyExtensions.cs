@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Enmeshed.DevelopmentKit.Identity.ValueObjects;
+﻿using Enmeshed.DevelopmentKit.Identity.ValueObjects;
 using Messages.Domain.Entities;
 
 namespace Messages.Application.Extensions

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Enmeshed.BuildingBlocks.API;
+﻿using Enmeshed.BuildingBlocks.API;
 using Enmeshed.BuildingBlocks.API.Mvc;
 using Enmeshed.BuildingBlocks.API.Mvc.ControllerAttributes;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Exceptions;
@@ -15,7 +13,6 @@ using Messages.Application.Messages.Queries.ListMessages;
 using Messages.Common;
 using Messages.Domain.Ids;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 

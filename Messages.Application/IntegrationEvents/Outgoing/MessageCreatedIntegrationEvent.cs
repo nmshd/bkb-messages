@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus.Events;
+﻿using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus.Events;
 using Messages.Domain.Entities;
 
 namespace Messages.Application.IntegrationEvents.Outgoing

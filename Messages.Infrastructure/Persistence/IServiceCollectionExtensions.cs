@@ -1,5 +1,4 @@
-﻿using System;
-using Messages.Infrastructure.Persistence.Database;
+﻿using Messages.Infrastructure.Persistence.Database;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Messages.Infrastructure.Persistence

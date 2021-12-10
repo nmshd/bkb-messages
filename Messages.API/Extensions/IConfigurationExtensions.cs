@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
 using Messages.Infrastructure.EventBus;
-using Microsoft.Extensions.Configuration;
 
 namespace Messages.API.Extensions
 {
