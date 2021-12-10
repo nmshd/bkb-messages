@@ -37,6 +37,7 @@ public class Startup
 
             options.Json.Converters.Add(new FileIdJsonConverter());
             options.Json.Converters.Add(new MessageIdJsonConverter());
+            options.Json.Converters.Add(new RelationshipIdJsonConverter());
         });
 
         services.AddCustomApplicationInsights();

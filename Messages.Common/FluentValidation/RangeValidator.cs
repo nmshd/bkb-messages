@@ -15,10 +15,7 @@ public class RangeValidator<T, TProperty, TRangeContent> : PropertyValidator<T, 
         if (value is not Range<TRangeContent> range)
             throw new InvalidOperationException($"{typeof(RangeValidator<T, TProperty, TRangeContent>).FullName} can only be applied to objects of type {typeof(Range<TRangeContent>).FullName}.");
 
-        if (!range.HasFrom() && range.HasTo())
-            return false;
-
-        return true;
+        return range.HasFrom() || !range.HasTo();
     }
 }
 

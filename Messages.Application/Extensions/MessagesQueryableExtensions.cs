@@ -79,14 +79,14 @@ public static class MessagesQueryableExtensions
 
     public static IQueryable<Message> CreatedAt(this IQueryable<Message> query, OptionalDateRange createdAt)
     {
-        if (createdAt != null)
-        {
-            if (createdAt.From != default)
-                query = query.Where(r => r.CreatedAt >= createdAt.From);
+        if (createdAt == null)
+            return query;
 
-            if (createdAt.To != default)
-                query = query.Where(r => r.CreatedAt <= createdAt.To);
-        }
+        if (createdAt.From != default)
+            query = query.Where(r => r.CreatedAt >= createdAt.From);
+
+        if (createdAt.To != default)
+            query = query.Where(r => r.CreatedAt <= createdAt.To);
 
         return query;
     }
