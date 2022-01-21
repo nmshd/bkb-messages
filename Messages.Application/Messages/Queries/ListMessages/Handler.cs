@@ -82,8 +82,8 @@ public class Handler : IRequestHandler<ListMessagesCommand, ListMessagesResponse
         if (request.CreatedAt != null)
             query = query.CreatedAt(request.CreatedAt);
 
-        var items = await query.OrderAndPaginate(d => d.CreatedAt, request.PaginationFilter);
+        var dbPaginationResult = await query.OrderAndPaginate(d => d.CreatedAt, request.PaginationFilter);
         
-        return items;
+        return dbPaginationResult;
     }
 }
