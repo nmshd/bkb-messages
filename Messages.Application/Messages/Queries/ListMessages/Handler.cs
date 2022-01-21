@@ -46,50 +46,50 @@ public class Handler : IRequestHandler<ListMessagesCommand, ListMessagesResponse
     {
         var addressOfActiveIdentity = _userContext.GetAddress();
 
-        var messagesQuery = _dbContext
+        var query = _dbContext
             .Set<Message>()
             .AsQueryable()
             .IncludeAllReferences(addressOfActiveIdentity);
 
         if (request.Ids.Any())
-            messagesQuery = messagesQuery.WithIdsIn(request.Ids);
+            query = query.WithIdsIn(request.Ids);
 
         if (request.OnlyIncoming)
-            messagesQuery = messagesQuery.WithRecipient(addressOfActiveIdentity);
+            query = query.WithRecipient(addressOfActiveIdentity);
         else
-            messagesQuery = messagesQuery.WithSenderOrRecipient(identityAddress);
+            query = query.WithSenderOrRecipient(identityAddress);
 
-        messagesQuery = messagesQuery.DoNotSendBeforePropertyIsNotInTheFuture();
+        query = query.DoNotSendBeforePropertyIsNotInTheFuture();
 
         if (request.Unreceived)
         {
             if (request.Recipient != null)
-                messagesQuery = messagesQuery.UnreceivedOfSpecificRecipient(request.Recipient);
+                query = query.UnreceivedOfSpecificRecipient(request.Recipient);
             else
-                messagesQuery = messagesQuery.Unreceived();
+                query = query.Unreceived();
         }
         else
         {
             if (request.Recipient != null)
-                messagesQuery = messagesQuery.ToASpecificRecipient(request.Recipient);
+                query = query.ToASpecificRecipient(request.Recipient);
         }
 
         if (request.CreatedBy != null)
-            messagesQuery = messagesQuery.FromASpecificSender(request.CreatedBy);
+            query = query.FromASpecificSender(request.CreatedBy);
 
         if (request.Relationship != null)
-            messagesQuery = messagesQuery.OfASpecificRelationship(request.Relationship);
+            query = query.OfASpecificRelationship(request.Relationship);
 
         if (request.CreatedAt != null)
-            messagesQuery = messagesQuery.CreatedAt(request.CreatedAt);
+            query = query.CreatedAt(request.CreatedAt);
 
-        var totalRecords = await messagesQuery.CountAsync();
-
-        var messages = await messagesQuery
+        var items = await query
             .OrderBy(m => m.CreatedAt)
             .Paged(request.PaginationFilter)
             .ToListAsync();
 
-        return (totalRecords, messages);
+        var totalNumberOfItems = items.Count < request.PaginationFilter.PageSize ? items.Count : await query.CountAsync();
+
+        return (totalNumberOfItems, items);
     }
 }
