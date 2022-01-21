@@ -7,7 +7,6 @@ using MediatR;
 using Messages.Application.Extensions;
 using Messages.Application.Messages.DTOs;
 using Messages.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Messages.Application.Messages.Queries.ListMessages;
 
@@ -28,68 +27,63 @@ public class Handler : IRequestHandler<ListMessagesCommand, ListMessagesResponse
 
     public async Task<ListMessagesResponse> Handle(ListMessagesCommand request, CancellationToken cancellationToken)
     {
-        var (totalRecords, items) = await FindMessagesOfIdentity(_userContext.GetAddress(), request);
+        var dbPaginationResult = await FindMessagesOfIdentity(_userContext.GetAddress(), request);
 
-        var response = new ListMessagesResponse(_mapper.Map<IEnumerable<MessageDTO>>(items), request.PaginationFilter, totalRecords);
+        var response = new ListMessagesResponse(_mapper.Map<IEnumerable<MessageDTO>>(dbPaginationResult.ItemsOnPage), request.PaginationFilter, dbPaginationResult.TotalNumberOfItems);
 
         if (!request.NoBody)
             await _messageService.FillBodies(response);
 
-        await _messageService.MarkMessagesAsReceived(items, cancellationToken);
+        await _messageService.MarkMessagesAsReceived(dbPaginationResult.ItemsOnPage, cancellationToken);
 
         response.PrepareForActiveIdentity(_userContext.GetAddress());
 
         return response;
     }
 
-    private async Task<(int TotalRecords, IEnumerable<Message> Items)> FindMessagesOfIdentity(IdentityAddress identityAddress, ListMessagesCommand request)
+    private async Task<DbPaginationResult<Message>> FindMessagesOfIdentity(IdentityAddress identityAddress, ListMessagesCommand request)
     {
         var addressOfActiveIdentity = _userContext.GetAddress();
 
-        var messagesQuery = _dbContext
+        var query = _dbContext
             .Set<Message>()
             .AsQueryable()
             .IncludeAllReferences(addressOfActiveIdentity);
 
         if (request.Ids.Any())
-            messagesQuery = messagesQuery.WithIdsIn(request.Ids);
+            query = query.WithIdsIn(request.Ids);
 
         if (request.OnlyIncoming)
-            messagesQuery = messagesQuery.WithRecipient(addressOfActiveIdentity);
+            query = query.WithRecipient(addressOfActiveIdentity);
         else
-            messagesQuery = messagesQuery.WithSenderOrRecipient(identityAddress);
+            query = query.WithSenderOrRecipient(identityAddress);
 
-        messagesQuery = messagesQuery.DoNotSendBeforePropertyIsNotInTheFuture();
+        query = query.DoNotSendBeforePropertyIsNotInTheFuture();
 
         if (request.Unreceived)
         {
             if (request.Recipient != null)
-                messagesQuery = messagesQuery.UnreceivedOfSpecificRecipient(request.Recipient);
+                query = query.UnreceivedOfSpecificRecipient(request.Recipient);
             else
-                messagesQuery = messagesQuery.Unreceived();
+                query = query.Unreceived();
         }
         else
         {
             if (request.Recipient != null)
-                messagesQuery = messagesQuery.ToASpecificRecipient(request.Recipient);
+                query = query.ToASpecificRecipient(request.Recipient);
         }
 
         if (request.CreatedBy != null)
-            messagesQuery = messagesQuery.FromASpecificSender(request.CreatedBy);
+            query = query.FromASpecificSender(request.CreatedBy);
 
         if (request.Relationship != null)
-            messagesQuery = messagesQuery.OfASpecificRelationship(request.Relationship);
+            query = query.OfASpecificRelationship(request.Relationship);
 
         if (request.CreatedAt != null)
-            messagesQuery = messagesQuery.CreatedAt(request.CreatedAt);
+            query = query.CreatedAt(request.CreatedAt);
 
-        var totalRecords = await messagesQuery.CountAsync();
-
-        var messages = await messagesQuery
-            .OrderBy(m => m.CreatedAt)
-            .Paged(request.PaginationFilter)
-            .ToListAsync();
-
-        return (totalRecords, messages);
+        var dbPaginationResult = await query.OrderAndPaginate(d => d.CreatedAt, request.PaginationFilter);
+        
+        return dbPaginationResult;
     }
 }
