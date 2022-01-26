@@ -23,6 +23,8 @@ public class Message : Identifiable<MessageId>
         Attachments = attachments.ToList();
     }
 
+    public MessageId Id { get; }
+
     public DateTime CreatedAt { get; }
     public IdentityAddress CreatedBy { get; }
     public DeviceId CreatedByDevice { get; }
@@ -32,6 +34,4 @@ public class Message : Identifiable<MessageId>
 
     public IReadOnlyCollection<Attachment> Attachments { get; }
     public IReadOnlyCollection<RecipientInformation> Recipients { get; }
-
-    public MessageId Id { get; }
 }
