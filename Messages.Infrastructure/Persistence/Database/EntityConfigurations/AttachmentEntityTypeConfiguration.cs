@@ -13,8 +13,5 @@ public class AttachmentEntityTypeConfiguration : IEntityTypeConfiguration<Attach
 
         builder
             .HasKey(m => new {m.Id, m.MessageId});
-
-        builder.Property(x => x.Id).HasColumnType($"char({FileId.MAX_LENGTH})");
-        builder.Property(x => x.MessageId).HasColumnType($"char({MessageId.MAX_LENGTH})");
     }
 }
