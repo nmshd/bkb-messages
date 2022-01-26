@@ -17,16 +17,18 @@ public class ApplicationDbContext : AbstractDbContextBase
     public virtual DbSet<RecipientInformation> RecipientInformation { get; set; }
     public virtual DbSet<Relationship> Relationships { get; set; }
 
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        base.ConfigureConventions(configurationBuilder);
+
+        configurationBuilder.Properties<FileId>().AreUnicode(false).AreFixedLength().HaveMaxLength(FileId.MAX_LENGTH).HaveConversion<FileIdEntityFrameworkValueConverter>();
+        configurationBuilder.Properties<MessageId>().AreUnicode(false).AreFixedLength().HaveMaxLength(MessageId.MAX_LENGTH).HaveConversion<MessageIdEntityFrameworkValueConverter>();
+        configurationBuilder.Properties<RelationshipId>().AreUnicode(false).AreFixedLength().HaveMaxLength(RelationshipId.MAX_LENGTH).HaveConversion<RelationshipIdEntityFrameworkValueConverter>();
+    }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-
-        builder.UseValueConverter(
-            new MessageIdEntityFrameworkValueConverter(new ConverterMappingHints(MessageId.MAX_LENGTH)));
-        builder.UseValueConverter(
-            new FileIdEntityFrameworkValueConverter(new ConverterMappingHints(FileId.MAX_LENGTH)));
-        builder.UseValueConverter(
-            new RelationshipIdEntityFrameworkValueConverter(new ConverterMappingHints(RelationshipId.MAX_LENGTH)));
 
         builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }

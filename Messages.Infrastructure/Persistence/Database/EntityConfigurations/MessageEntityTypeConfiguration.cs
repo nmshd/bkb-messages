@@ -14,12 +14,10 @@ public class MessageEntityTypeConfiguration : IEntityTypeConfiguration<Message>
         builder.HasIndex(m => m.DoNotSendBefore);
         builder.HasIndex(m => m.CreatedAt);
 
+        builder.Property(x => x.CreatedByDevice);
+
         builder
             .HasKey(m => m.Id);
-
-        builder.Property(x => x.Id).HasColumnType($"char({MessageId.MAX_LENGTH})");
-        builder.Property(x => x.CreatedBy).HasColumnType($"char({IdentityAddress.MAX_LENGTH})");
-        builder.Property(x => x.CreatedByDevice).HasColumnType($"char({DeviceId.MAX_LENGTH})");
 
         builder.Ignore(a => a.Body);
     }

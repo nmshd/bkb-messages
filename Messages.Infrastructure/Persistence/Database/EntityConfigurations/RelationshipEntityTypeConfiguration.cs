@@ -14,8 +14,8 @@ public class RelationshipEntityTypeConfiguration : IEntityTypeConfiguration<Rela
 
         builder.ToTable(nameof(Relationship) + "s", "Relationships");
 
-        builder.Property(x => x.Id).HasColumnType($"char({RelationshipId.MAX_LENGTH})");
-        builder.Property(x => x.From).HasColumnType($"char({IdentityAddress.MAX_LENGTH})");
-        builder.Property(x => x.To).HasColumnType($"char({IdentityAddress.MAX_LENGTH})");
+        builder.Property(x => x.CreatedAt);
+        builder.Property(x => x.From);
+        builder.Property(x => x.To);
     }
 }
